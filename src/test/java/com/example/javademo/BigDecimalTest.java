@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 
+import static java.math.BigDecimal.*;
+
 /**
  * 对BigDecimal的所有的构造方法和使用方法进行测试
  * 常见的构造方法
@@ -39,7 +41,7 @@ public class BigDecimalTest extends JavaDemoApplicationTests {
 
 
     @Test
-        public void testConstruction() {
+    public void testConstruction() {
         //测试构造方法
         //参数为int
         BigDecimal bigDecimal = new BigDecimal(2);
@@ -52,13 +54,13 @@ public class BigDecimalTest extends JavaDemoApplicationTests {
 
         System.out.println("bigDecimal=" + bigDecimal);
         System.out.println("bDouble=" + bDouble);
-        System.out.println("bdouble="+bdouble);
+        System.out.println("bdouble=" + bdouble);
         System.out.println("bString=" + bString);
 
     }
 
     @Test
-    public void formatTest(){
+    public void formatTest() {
         NumberFormat currency = NumberFormat.getCurrencyInstance(); //建立货币格式化引用
         NumberFormat percent = NumberFormat.getPercentInstance();  //建立百分比格式化引用
         percent.setMaximumFractionDigits(3); //百分比小数点最多3位
@@ -73,7 +75,7 @@ public class BigDecimalTest extends JavaDemoApplicationTests {
     }
 
     @Test
-    public void operationTest(){
+    public void operationTest() {
         BigDecimal a = new BigDecimal("4.5");
         BigDecimal b = new BigDecimal("1.5");
 
@@ -81,5 +83,13 @@ public class BigDecimalTest extends JavaDemoApplicationTests {
         System.out.println("a - b =" + a.subtract(b));  //减法
         System.out.println("a * b =" + a.multiply(b));  //乘法
         System.out.println("a / b =" + a.divide(b));  //除法
+    }
+
+    @Test
+    public void divideTest() {
+        BigDecimal a = new BigDecimal("1");
+        BigDecimal b = new BigDecimal("3");
+        // 除法的宁外一个方法，里面是3个参数，第一个是除数类型是bigdecimal，第二个参数是保留小数点的位数，第三个参数是你选择的进舍的规则
+        System.out.println(a.divide(b, 2, ROUND_CEILING));
     }
 }
