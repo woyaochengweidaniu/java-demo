@@ -4,6 +4,7 @@ package com.example.javademo.enums;
  * 创建枚举类型，
  */
 public enum PcOsVersion {
+    //每一个枚举就是一个实例，其中三个参数是他的有参构造，返回的是一个实例
     WIN_10("Windows 10", "10.0.1", "10"),
     WIN_SERVER_2016("Windows Server 2016", "10.0.0", "10"),
     WIN_8_1("Windows 8.1", "6.3.1", "8"),
@@ -46,6 +47,7 @@ public enum PcOsVersion {
     private String osSerial;
     private String type;
 
+    //给出有参构造，第一是名字，第二个系统编号，第三个是版本
     PcOsVersion(String name, String osSerial, String type) {
         this.name = name;
         this.osSerial = osSerial;

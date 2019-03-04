@@ -147,6 +147,9 @@ public class JavaLambdaTest extends JavaDemoApplicationTests{
                 .reduce(Integer::sum).get();
         System.out.println(totalAge);
 
+
+
+
     }
 
     @Test
