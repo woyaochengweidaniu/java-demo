@@ -1,5 +1,7 @@
 package com.example.javademo.pojo;
 
+import java.math.BigDecimal;
+
 public class Student {
 
     /** 学号 */
@@ -8,6 +10,7 @@ public class Student {
     private String name;
 
     private int age;
+    private BigDecimal money;
 
     /** 年级 */
     private int grade;
@@ -17,6 +20,14 @@ public class Student {
 
     /** 学校 */
     private String school;
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
 
     public long getId() {
         return id;
@@ -66,13 +77,14 @@ public class Student {
         this.school = school;
     }
 
-    public Student(long id, String name, int age, int grade, String major, String school) {
+    public Student(long id, String name, int age, int grade, String major, String school,BigDecimal money) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.grade = grade;
         this.major = major;
         this.school = school;
+        this.money =  money;
     }
 
     @Override
@@ -81,10 +93,13 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", money=" + money +
                 ", grade=" + grade +
                 ", major='" + major + '\'' +
                 ", school='" + school + '\'' +
                 '}';
     }
+
+
     // 省略getter和setter
 }

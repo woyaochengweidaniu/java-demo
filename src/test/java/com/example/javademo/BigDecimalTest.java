@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static java.math.BigDecimal.*;
 
@@ -79,10 +81,11 @@ public class BigDecimalTest extends JavaDemoApplicationTests {
         BigDecimal a = new BigDecimal("4.5");
         BigDecimal b = new BigDecimal("1.5");
 
-        System.out.println("a + b =" + a.add(b));  //加法
-        System.out.println("a - b =" + a.subtract(b));  //减法
-        System.out.println("a * b =" + a.multiply(b));  //乘法
+        //System.out.println("a + b =" + a.add(b.add(a)));  //加法
+//        System.out.println("a - b =" + a.subtract(b));  //减法
+//        System.out.println("a * b =" + a.multiply(b));  //乘法
         System.out.println("a / b =" + a.divide(b));  //除法
+        System.out.println(a.divide((a.add(b))).toPlainString());
     }
 
     @Test
@@ -91,5 +94,19 @@ public class BigDecimalTest extends JavaDemoApplicationTests {
         BigDecimal b = new BigDecimal("3");
         // 除法的宁外一个方法，里面是3个参数，第一个是除数类型是bigdecimal，第二个参数是保留小数点的位数，第三个参数是你选择的进舍的规则
         System.out.println(a.divide(b, 2, ROUND_CEILING));
+    }
+
+    @Test
+    public void divideTests() {
+//        int l= 89898;
+//        BigDecimal decimal = new BigDecimal(l);
+//        System.out.println(decimal.divide(new BigDecimal(100)));
+//        System.out.println(l/100);
+//        System.out.println(new BigDecimal(0).add(new BigDecimal(2.00)));
+        BigDecimal d = new BigDecimal(0);
+        BigDecimal add = d.add(new BigDecimal(50));
+        //System.out.println(add.add(new BigDecimal(-10)));
+        //System.out.println(d);
+        System.out.println(new BigDecimal(-8).add(new BigDecimal(-9)).abs());
     }
 }

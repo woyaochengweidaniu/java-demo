@@ -3,12 +3,10 @@ package com.example.javademo;
 
 import com.example.javademo.pojo.Student;
 import com.example.javademo.utils.DataUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -33,11 +31,16 @@ public class JavaLambdaTest extends JavaDemoApplicationTests{
     @Test
     public void distinct(){
         //找出年龄是偶数的学生并且去重
-         DataUtils.getData().stream()
-                 .filter(student -> student.getAge()%2==0)
-                 .distinct().collect(Collectors.toList()).forEach(student -> {
-             System.out.println(student);
-         });
+//         DataUtils.getData().stream()
+//                 .filter(student -> student.getAge()%2==0)
+//                 .distinct().collect(Collectors.toList()).forEach(student -> {
+//             System.out.println(student);
+//         });
+
+        List<Student> list = DataUtils.getData().stream().collect(Collectors.collectingAndThen(
+                Collectors.toCollection(() ->new TreeSet<>(Comparator.comparing(Student::getName))),ArrayList::new
+        ));
+        list.forEach(student -> System.out.println(student));
     }
     @Test
     public void limit(){
@@ -76,7 +79,7 @@ public class JavaLambdaTest extends JavaDemoApplicationTests{
 
     @Test
     public void map(){
-        //找出是计算机科学专业的学生的年龄之和
+        //找出是计算机科学专业有多少人
         DataUtils.getData().stream()
                 .filter(student -> student.getMajor().equals("计算机科学"))
                 .map(Student::getName)
@@ -87,7 +90,7 @@ public class JavaLambdaTest extends JavaDemoApplicationTests{
 
     @Test
     public void mapToInt(){
-        //找出是计算机科学专业有多少人
+        //找出是计算机科学专业的学生的年龄之和
         System.out.println(DataUtils.getData().stream()
                 .filter(student -> student.getMajor().equals("计算机科学"))
                 .mapToInt(Student::getAge)
@@ -102,6 +105,7 @@ public class JavaLambdaTest extends JavaDemoApplicationTests{
                 .flatMap(Arrays::stream)  // 扁平化为Stream<String>
                 .distinct()
                 .collect(Collectors.toList());
+
         distinctStrs.forEach(s -> System.out.println(s));
     }
 
@@ -186,6 +190,8 @@ public class JavaLambdaTest extends JavaDemoApplicationTests{
     public void groupingBy (){
         //可以进行一级分组
         Map<String, List<Student>> groups = DataUtils.getData().stream().collect(Collectors.groupingBy(Student::getSchool));
+        System.out.println(groups);
+        System.out.println("###############################");
         //进行三级分组
         Map<String, Map<String, Map<Integer, List<Student>>>> groups2 = DataUtils.getData().stream().collect(
                 Collectors.groupingBy(Student::getSchool,  // 一级分组，按学校
@@ -194,6 +200,7 @@ public class JavaLambdaTest extends JavaDemoApplicationTests{
         groups.forEach((s, students) -> System.out.println(s+":"+students));
         groups2.forEach((s, students) -> System.out.println(s+":"+students));
         //实际上在groupingBy的第二个参数不是只能传递groupingBy，还可以传递任意Collector类型，比如我们可以传递一个Collector.counting，用以统计每个组的个数：
+        System.out.println("--------------------------------------------------------------------");
         //统计每个学校的每个专业有多少学生
         Map<String,Map<String,Long>> mapMap = DataUtils.getData().stream().collect(Collectors.groupingBy(Student::getSchool,
                 Collectors.groupingBy(Student::getMajor,Collectors.counting())));
